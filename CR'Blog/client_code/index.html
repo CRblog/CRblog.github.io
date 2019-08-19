@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>刘文祥</title>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 	
+
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="/staticRes/js/html5shiv.js"></script>
+      <script type="text/javascript" src="/staticRes/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="plugin/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="plugin/Hui-iconfont/1.0.8/iconfont.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" href="plugin/pifu/pifu.css" />
+    <link rel="stylesheet" href="editor.md/css/editormd.css" />
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="amazeui/assets/css/amazeui.min.css">
+    <link rel="stylesheet" href="amazeui/assets/css/app.css">
+
+    
+    
+    <!--[if lt IE 9]>
+      <link href="/staticRes/lib/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <style>
+      [v-cloak]
+      {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container pt-20" id="app">
+      <!--<div class="Huialert Huialert-info"><i class="Hui-iconfont">&#xe6a6;</i>成功状态提示</div>-->
+      <!--left-->
+      <div class="col-sm-9 col-md-9" v-show="blog.blog_id == null">
+
+        <!--滚动图-->
+        <!-- 正文区 -->
+        <div class="art_content" >
+          <ul class="index_arc">	
+            <!-- 文章 -->
+          <li class="index_arc_item no_pic" v-for="blog in blogs" v-cloak>
+            <h4><a  v-on:click="edit_blog(blog.blog_id)">{{blog.title}}</a></h4>
+            <div class="date_hits">
+              <span>{{author}}</span>
+              <span>{{blog.create_time}}</span>
+              <span><a href="">{{TagNameGet(blog.tag_id)}}</a></span>
+              <p class="hits"><i class="Hui-iconfont" title="点击量">&#xe6c1;</i> 276 °</p>
+              <p class="commonts"><i class="Hui-iconfont" title="点击量">&#xe622;</i> <span id="sourceId::105" class="cy_cmt_count">20</span></p>
+            </div>
+            <div class="desc">  
+              <a v-on:click="get_blog(blog.blog_id)">&nbsp;&nbsp;&nbsp;&nbsp; 查看</a>
+              <a v-on:click="edit_blog(blog.blog_id)">&nbsp;&nbsp;&nbsp;&nbsp; 编辑</a>
+              <a v-on:click="delete_blog(blog.blog_id)">&nbsp;&nbsp;&nbsp;&nbsp; 删除</a>
+            </div> 
+          </li>
+          </ul>
+        
+              <button type="button" class="am-btn am-btn-danger" v-on:click="edit_nullblog()" style="width:200px;float:right;">新建博客</button>
+        </div>
+      </div>
+
+
+      <div class="col-sm-10 col-md-12" v-show="blog.blog_id != null " v-cloak>
+            <span class="am-form">
+              <div class="am-form-group">
+                <span for="doc-ipt-pwd-1">博客标题</span>
+                <input type="text" class="" v-model="blog.title">
+                <button type="button" class="am-btn am-btn-danger" v-on:click="update_blog(blog.blog_id)" style="float: right;">提交</button>
+              </div>
+            </span>
+              <article id="show_content">
+                <textarea>{{blog.content}}</textarea>
+              </article>
+              <button type="button" class="am-btn am-btn-default" v-on:click="back()" style="float:right">返回</button> 
+              <button type="button" class="am-btn am-btn-default" v-on:click="save_blog(blog.blog_id)" style="float:right">保存</button>
+      </div>
+
+
+
+      <!--right-->
+      <div class="col-sm-3 col-md-3" v-show="blog.blog_id == null">
+        <!--博主信息-->
+        <div class="bg-fff box-shadow radius mb-20">
+
+          <div class="">
+            <center><img src="/img/111.jpg" alt="不凡QAQ" class="am-img-thumbnail" style="width: 120px;height: 120px;"></center>
+
+              <center><p>菜是原罪</p></center>
+
+              <center><p>只有争取过了才不会后悔</p></center>
+
+            
+          </div>
+        </div>
+
+
+        <!--标签-->
+        <div class="bg-fff box-shadow radius mb-20">
+          <div class="tab-category">
+            <a href=""><strong>标签</strong></a>
+          </div>
+          <div class="tab-category-item" v-cloak>
+            <div class="tags"> 
+              <ul>
+                <li><a href="" class="blog-tag" v-for="tag in tags">{{tag.tag_name}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!--友情链接-->
+        <div class="bg-fff box-shadow radius mb-20">
+          <div class="tab-category">
+            <a href=""><strong>友链</strong></a>
+          </div>
+          <div class="tab-category-item">
+            <span><i class="Hui-iconfont">&#xe6f1;</i><a href="https://me.csdn.net/qq_36791466" class="btn-link">CSDN</a></span>
+            <span><i class="Hui-iconfont">&#xe6f1;</i><a href="https://github.com/CRblog" class="btn-link">Github</a></span>
+
+          </div>
+        </div>
+        <!--最近访客-->
+        <!--分享-->
+        <div class="bg-fff box-shadow radius mb-20">
+          <div class="tab-category">
+            <a href=""><strong>联系我</strong></a>
+          </div>
+          <div class="panel-body">
+            <div class="bdsharebuttonbox Hui-share"><a href="#" class="bds_weixin Hui-iconfont" data-cmd="weixin" title="分享到微信">&#xe694;</a><a href="#" class="bds_qzone Hui-iconfont" data-cmd="qzone" title="分享到QQ空间">&#xe6c8;</a> <a href="#" class="bds_sqq Hui-iconfont" data-cmd="sqq" title="分享到QQ好友">&#xe67b;</a> <a href="#" class="bds_tsina Hui-iconfont" data-cmd="tsina" title="分享到新浪微博">&#xe6da;</a> <a href="#" class="bds_tqq Hui-iconfont" data-cmd="tqq" title="分享到腾讯微博">&#xe6d9;</a></div>
+          </div>
+        </div>
+
+      </div>
+      <!-- 版权区 --> 
+    </div>
+
+    <footer class="footer mt-20">
+      <div class="container-fluid" id="foot">
+        <p>Copyright &copy; 2019 刘文祥 <br>
+        </p>
+      </div>
+    </footer>
+
+
+    <script type="text/javascript" src="plugin/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="plugin/layer/3.0/layer.js"></script>
+    <script type="text/javascript" src="plugin/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="plugin/pifu/pifu.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script> $(function(){ $(window).on("scroll",backToTopFun); backToTopFun(); }); </script>
+    <script type="text/javascript" src="plugin/jquery.SuperSlide/2.1.1/jquery.SuperSlide.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+
+    <script src="/assets/js/amazeui.min.js"></script>                                                         
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="editor.md/lib/marked.min.js"></script>
+    <script src="editor.md/lib/prettify.min.js"></script>
+    <script src="editor.md/lib/raphael.min.js"></script>
+    <script src="editor.md/lib/underscore.min.js"></script>
+    <script src="editor.md/lib/sequence-diagram.min.js"></script>
+    <script src="editor.md/lib/flowchart.min.js"></script>
+    <script src="editor.md/lib/jquery.flowchart.min.js"></script>
+    <script src="editor.md/editormd.js"></script>
+
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          author: '不凡QAQ',
+          blogs: [
+          ],
+          tags: [
+          ],
+          tag: {
+
+          },
+          blog: {
+          },
+
+        },
+        methods: {
+          TagNameGet(tag_id){
+            for(var index in this.tags) {
+              if(this.tags[index].tag_id = tag_id){
+                return this.tags[index].tag_name
+              }
+            }
+            return "无标签"
+          },
+          back()
+          {
+            this.blog = {};
+          },
+          blogs_list(tag_id){
+            var url = '/blog';
+            if(tag_id!=null)
+            {
+              url = '/blog/?tag_id='+ tag_id;
+            }
+            $.ajax({
+              url: url,
+              type: "get",
+              context: this,
+              success: function(data,status){
+                this.blogs = data;
+              }
+            })
+          },
+          init(){
+            $.ajax({
+              type: "get",
+              url: "/tag",
+              context: this,
+              success: function(data,status) {
+                this.tags = data;
+                this.blogs_list();
+              }
+            })
+          },
+          get_blog(blog_id){
+            $.ajax({
+              url: '/blog/' + blog_id,
+              type: "get",
+              context: this,
+              success: function(data,status){
+                this.blog = data; 
+                testEditormdView = editormd.markdownToHTML("show_content",{
+                  markdown        : this.blog.content,
+                  htmlDecode      : "style,script,iframe",
+                  tocm            : true,   
+                  emoji           : true,
+                  taskList        : true,
+                  tex             : true,  // 默认不解析
+                  flowChart       : true,  // 默认不解析
+                  sequenceDiagram : true,  // 默认不解析
+                }); 
+              }
+            })
+          },
+          edit_blog(blog_id){
+            $.ajax({
+              type: "get",
+              url: "/blog/" + blog_id,
+              context: this, 
+              success: function(data,status) {
+                this.blog = data;
+                testEditor = editormd("show_content", {
+                  width   : "90%",
+                  height  : 1000,
+                  syncScrolling : "single",
+                  path    : "editor.md/lib/"               
+                });         
+              }      
+            })    
+          },
+
+          update_blog(blog_id){   
+                var content = testEditor.getMarkdown();
+                var body={
+                    title: this.blog.title,
+                    content: content,
+                    tag_id: this.blog.tag_id, 
+                    }
+            $.ajax({
+                    type: "put",
+                    url: "/blog/" + blog_id,
+                    data: JSON.stringify(body),
+                    contentype: 'application/json;charset=utf-8',
+                    context: this,
+                    success: function(data,status) {
+                        this.blogs_list();
+                        alert("博客发布成功!");
+                        this.back();  
+              }
+                  
+            })  
+          },
+         
+        
+          save_blog(blog_id){   
+                var content = testEditor.getMarkdown();
+                var body={
+                    title: this.blog.title,
+                    content: content,
+                    tag_id: this.blog.tag_id, 
+                    }
+            $.ajax({
+                    type: "put",
+                    url: "/blog/" + blog_id,
+                    data: JSON.stringify(body),
+                    contentype: 'application/json;charset=utf-8',
+                    context: this,
+                    success: function(data,status) {
+                        alert("博客已保存");
+              }
+                  
+            })  
+          },
+
+
+
+          edit_nullblog(){
+            var time,year,month,date,hours,minutes,seconds;
+            time = new Date();
+            year = time.getFullYear();
+            month = (time.getMonth()+1)<10?("0"+(time.getMonth()+1)):(time.getMonth()+1);
+            date = time.getDate()<10?("0"+time.getDate()):time.getDate();
+            hours = time.getHours()<10?("0"+time.getHours()):time.getHours();
+            minutes = (time.getMinutes()<10?("0"+time.getMinutes()):time.getMinutes());
+            seconds = (time.getSeconds()<10?("0"+time.getSeconds()):time.getSeconds()); 
+            time = year+"-"+month+"-"+date+" "+hours+":"+minutes+":"+seconds; 
+            var bod ={
+                title: " ",
+                content: " ",
+                tag_id: 1,
+                create_time: time,
+            }
+            $.ajax({
+              type: "post",
+              url: "/blog",
+              data: JSON.stringify(bod),
+              context: this, 
+              success: function(data,status) {       
+                this.blog = data;
+                this.edit_blog(this.blog.blog_id); 
+              }  
+            })
+          },
+
+
+          
+          delete_blog(blog_id){
+            $.ajax({
+                    type: "delete",
+                    url: "/blog/" + blog_id,  
+                    context: this,
+                    success: function(data,status){
+                      this.blogs_list();  
+                      this.back(); 
+                        alert("删除成功");       
+              }    
+            })              
+          },
+
+
+
+        }
+      });
+app.init();
+    </script> 
+
+  </body>
+</html>

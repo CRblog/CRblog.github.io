@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>刘文祥</title>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 	
+    <link rel="stylesheet" href="editor.md/css/editormd.css" />
+    <link rel="stylesheet" type="text/css" href="plugin/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="plugin/Hui-iconfont/1.0.8/iconfont.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" href="plugin/pifu/pifu.css" />
+  </head>
+  <body>
+
+    <div class="container pt-20" id="app">
+      <div class="col-sm-9 col-md-9">
+        <!--滚动图-->
+        <!-- 正文区 -->
+        <div class="art_content" >
+          <ul class="index_arc">	
+            <!-- 文章 -->
+           <li class="index_arc_item no_pic" v-for="blog in blogs" v-cloak>
+            <div class="am-form">
+			<div class="am-form-group ">
+				<label for="doc-ipt-title-1">{{blog.title}}</label>
+				<input type="text" class="" v-model="blog.title"> 
+			</div>
+			</div>
+			<article id="content_view">
+              <textarea>{{blog.content}}</textarea>
+			</article>
+			<button type="button" class="am-btn am-btn-default" v-on:click="">返回</button>
+			<button type="button" class="am-btn am-btn-secondary" v-on:click="">提交</button>
+          </li>
+          </ul>
+        </div>
+      </div>
+
+
+
+      <!--right-->
+      <div class="col-sm-3 col-md-3">
+        <!--博主信息-->
+        <div class="bg-fff box-shadow radius mb-20">
+          <div class="tab-category">
+            <a href=""><strong>关于我</strong></a>
+          </div>
+          <div class="tab-category-item">
+            <ul class="index_recd">
+              <h1 class="blog-text-center blog-title"><span>不凡QAQ</span></h1>
+              <p>我是大佬</p>
+            </ul>
+          </div>
+        </div>
+
+
+        <!--热门推荐-->
+        <div class="bg-fff box-shadow radius mb-20">
+          <div class="tab-category">
+            <a href=""><strong>热门推荐</strong></a>
+          </div>
+          <div class="tab-category-item">
+            <ul class="index_recd">
+              <li>
+                <a href="#">阻止asdasd</a>
+                <p class="hits"><i class="Hui-iconfont" title="点击量">&#xe622;</i> 276 </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!--标签-->
+        <div class="bg-fff box-shadow radius mb-20">
+          <div class="tab-category">
+            <a href=""><strong>TAG CLOUD</strong></a>
+          </div>
+          <div class="tab-category-item" v-cloak>
+            <div class="tags"> 
+              <ul>
+                <li><a href="" class="blog-tag" v-for="tag in tags">{{tag.tag_name}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!--友情链接-->
+        <div class="bg-fff box-shadow radius mb-20">
+          <div class="tab-category">
+            <a href=""><strong>友链</strong></a>
+          </div>
+          <div class="tab-category-item">
+            <span><i class="Hui-iconfont">&#xe6f1;</i><a href="#" class="btn-link">百度</a></span>
+            <span><i class="Hui-iconfont">&#xe6f1;</i><a href="#" class="btn-link">淘宝</a></span>
+            <span><i class="Hui-iconfont">&#xe6f1;</i><a href="#" class="btn-link">腾讯</a></span>
+            <span><i class="Hui-iconfont">&#xe6f1;</i><a href="#" class="btn-link">慕课网</a></span>
+            <span><i class="Hui-iconfont">&#xe6f1;</i><a href="#" class="btn-link">h-ui</a></span>
+          </div>
+        </div>
+        <!--最近访客-->
+        <!--分享-->
+        <div class="bg-fff box-shadow radius mb-20">
+          <div class="tab-category">
+            <a href=""><strong>联系我</strong></a>
+          </div>
+          <div class="panel-body">
+            <div class="bdsharebuttonbox Hui-share"><a href="#" class="bds_weixin Hui-iconfont" data-cmd="weixin" title="分享到微信">&#xe694;</a><a href="#" class="bds_qzone Hui-iconfont" data-cmd="qzone" title="分享到QQ空间">&#xe6c8;</a> <a href="#" class="bds_sqq Hui-iconfont" data-cmd="sqq" title="分享到QQ好友">&#xe67b;</a> <a href="#" class="bds_tsina Hui-iconfont" data-cmd="tsina" title="分享到新浪微博">&#xe6da;</a> <a href="#" class="bds_tqq Hui-iconfont" data-cmd="tqq" title="分享到腾讯微博">&#xe6d9;</a></div>
+          </div>
+        </div>
+
+      </div>
+      <!-- 版权区 --> 
+    </div>
+
+    <footer class="footer mt-20">
+      <div class="container-fluid" id="foot">
+        <p>Copyright &copy; 2019 刘文祥 <br>
+        </p>
+      </div>
+    </footer>
+
+
+    <script type="text/javascript" src="plugin/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="plugin/layer/3.0/layer.js"></script>
+    <script type="text/javascript" src="plugin/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="plugin/pifu/pifu.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script> $(function(){ $(window).on("scroll",backToTopFun); backToTopFun(); }); </script>
+    <script type="text/javascript" src="plugin/jquery.SuperSlide/2.1.1/jquery.SuperSlide.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+
+    <script src="assets/js/amazeui.min.js"></script>                                                         
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="editor.md/lib/marked.min.js"></script>
+    <script src="editor.md/lib/prettify.min.js"></script>
+    <script src="editor.md/lib/raphael.min.js"></script>
+    <script src="editor.md/lib/underscore.min.js"></script>
+    <script src="editor.md/lib/sequence-diagram.min.js"></script>
+    <script src="editor.md/lib/flowchart.min.js"></script>
+    <script src="editor.md/lib/jquery.flowchart.min.js"></script>
+    <script src="editor.md/editormd.js"></script>
+
+<script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+           author: 'CR',
+           blog: 
+		{
+             blog_id: 1,
+             title: "qqqq",
+             cotent: "asdasdass",
+             tag_id: 1,
+         },
+           tag: 
+		{
+             tag_id: 1,                            
+             tag_name: "QQQ",
+        },
+    },
+	methods: 
+	{
+	    edit_blog(blog_id)
+		{
+			$(function(data,status) {
+                testEditor = editormd("content_view", {
+                    width   : "50%",
+                    height  : 640,
+                    syncScrolling : "single",
+                    path    : "editor.md/lib/"
+                });
+			})	
+		},
+	}
+});
+app.edit_blog(1);
+</script> 
+
+  </body>
+</html>
